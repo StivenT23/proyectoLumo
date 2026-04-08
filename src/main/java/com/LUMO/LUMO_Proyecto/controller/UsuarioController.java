@@ -5,10 +5,10 @@ import com.LUMO.LUMO_Proyecto.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin("*")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -23,13 +23,16 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> listarUsuarios() {
-        return usuarioService.listarUsuarios();
+    public List<Usuario> obtenerUsuarios() {
+        List<Usuario> usuarios = usuarioService.obtenerUsuarios();
+        System.out.println("Usuarios encontrados: " + usuarios.size());
+        return usuarios;
     }
 
     @GetMapping("/{id}")
-    public Optional<Usuario> buscarPorId(@PathVariable String id) {
-        return usuarioService.buscarPorId(id);
+    public Usuario buscarPorId(@PathVariable String id) {
+        return usuarioService.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 
     @DeleteMapping("/{id}")
