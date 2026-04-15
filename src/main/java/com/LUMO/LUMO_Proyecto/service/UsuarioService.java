@@ -3,6 +3,7 @@ package com.LUMO.LUMO_Proyecto.service;
 import com.LUMO.LUMO_Proyecto.model.Usuario;
 import com.LUMO.LUMO_Proyecto.repository.UsuarioRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,13 +15,18 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final MongoTemplate mongoTemplate;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, MongoTemplate mongoTemplate) {
+    public UsuarioService(UsuarioRepository usuarioRepository,
+                          MongoTemplate mongoTemplate,
+                          PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.mongoTemplate = mongoTemplate;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Usuario guardarUsuario(Usuario usuario) {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
@@ -29,7 +35,7 @@ public class UsuarioService {
         System.out.println("Colecciones visibles: " +
                 mongoTemplate.getDb().listCollectionNames().into(new ArrayList<>()));
 
-        long totalColeccion = mongoTemplate.getCollection("usuario").countDocuments();
+        long totalColeccion = mongoTemplate.getCollection("usuarios").countDocuments();
         System.out.println("Documentos directos en colección 'usuarios': " + totalColeccion);
 
         List<Usuario> usuarios = usuarioRepository.findAll();
@@ -40,6 +46,10 @@ public class UsuarioService {
 
     public Optional<Usuario> buscarPorId(String id) {
         return usuarioRepository.findById(id);
+    }
+
+    public Optional<Usuario> buscarPorCorreo(String correo) {
+        return usuarioRepository.findByCorreo(correo);
     }
 
     public void eliminarUsuario(String id) {
