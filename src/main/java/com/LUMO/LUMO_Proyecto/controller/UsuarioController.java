@@ -3,8 +3,10 @@ package com.LUMO.LUMO_Proyecto.controller;
 import com.LUMO.LUMO_Proyecto.model.Usuario;
 import com.LUMO.LUMO_Proyecto.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/usuarios")
@@ -20,6 +22,11 @@ public class UsuarioController {
     @PostMapping
     public Usuario guardarUsuario(@RequestBody Usuario usuario) {
         return usuarioService.guardarUsuario(usuario);
+    }
+
+    @PostMapping("/cargar-masivo")
+    public List<Usuario> cargarUsuariosMasivos(@RequestBody List<Usuario> usuarios) {
+        return usuarioService.guardarUsuariosMasivos(usuarios);
     }
 
     @GetMapping
