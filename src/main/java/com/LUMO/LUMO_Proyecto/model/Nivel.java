@@ -3,31 +3,32 @@ package com.LUMO.LUMO_Proyecto.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "juegos")
-public class Juego {
+@Document(collection = "niveles")
+public class Nivel {
 
     @Id
     private String id;
 
-    private String nombre;
+    private String nombre;                  // Ej: "Nivel 1 - Atención Básica"
     private String descripcion;
-    private String tipo;
-    private String nivelDificultad;
+    private Integer numeroNivel;
+    private Integer puntosRequeridos;
     private Boolean activo;
 
-    public Juego() {
+    public Nivel() {
     }
 
-    public Juego(String id, String nombre, String descripcion, String tipo,
-                 String nivelDificultad, Boolean activo) {
+    public Nivel(String id, String nombre, String descripcion, Integer numeroNivel,
+                 Integer puntosRequeridos, Boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.tipo = tipo;
-        this.nivelDificultad = nivelDificultad;
+        this.numeroNivel = numeroNivel;
+        this.puntosRequeridos = puntosRequeridos;
         this.activo = activo;
     }
 
+    // Getters y Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -37,11 +38,11 @@ public class Juego {
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public Integer getNumeroNivel() { return numeroNivel; }
+    public void setNumeroNivel(Integer numeroNivel) { this.numeroNivel = numeroNivel; }
 
-    public String getNivelDificultad() { return nivelDificultad; }
-    public void setNivelDificultad(String nivelDificultad) { this.nivelDificultad = nivelDificultad; }
+    public Integer getPuntosRequeridos() { return puntosRequeridos; }
+    public void setPuntosRequeridos(Integer puntosRequeridos) { this.puntosRequeridos = puntosRequeridos; }
 
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }

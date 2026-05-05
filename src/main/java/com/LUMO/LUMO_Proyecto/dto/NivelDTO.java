@@ -1,24 +1,24 @@
 package com.LUMO.LUMO_Proyecto.dto;
 
-public class JuegoDTO {
+public class NivelDTO {
 
     private String id;
     private String nombre;
     private String descripcion;
-    private String tipo;
-    private String nivelDificultad;
+    private Integer numeroNivel;
+    private Integer puntosRequeridos;
     private Boolean activo;
 
-    public JuegoDTO() {
+    public NivelDTO() {
     }
 
-    public JuegoDTO(String id, String nombre, String descripcion, String tipo,
-                    String nivelDificultad, Boolean activo) {
+    public NivelDTO(String id, String nombre, String descripcion, Integer numeroNivel,
+                    Integer puntosRequeridos, Boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.tipo = tipo;
-        this.nivelDificultad = nivelDificultad;
+        this.numeroNivel = numeroNivel;
+        this.puntosRequeridos = puntosRequeridos;
         this.activo = activo;
     }
 
@@ -32,11 +32,11 @@ public class JuegoDTO {
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public Integer getNumeroNivel() { return numeroNivel; }
+    public void setNumeroNivel(Integer numeroNivel) { this.numeroNivel = numeroNivel; }
 
-    public String getNivelDificultad() { return nivelDificultad; }
-    public void setNivelDificultad(String nivelDificultad) { this.nivelDificultad = nivelDificultad; }
+    public Integer getPuntosRequeridos() { return puntosRequeridos; }
+    public void setPuntosRequeridos(Integer puntosRequeridos) { this.puntosRequeridos = puntosRequeridos; }
 
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }

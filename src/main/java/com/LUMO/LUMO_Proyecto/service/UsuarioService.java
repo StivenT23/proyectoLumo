@@ -1,55 +1,64 @@
 package com.LUMO.LUMO_Proyecto.service;
 
+import com.LUMO.LUMO_Proyecto.dto.UsuarioDTO;
+import com.LUMO.LUMO_Proyecto.mapper.UsuarioMapper;
 import com.LUMO.LUMO_Proyecto.model.Usuario;
 import com.LUMO.LUMO_Proyecto.repository.UsuarioRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final UsuarioMapper usuarioMapper;
     private final MongoTemplate mongoTemplate;
-    private final PasswordEncoder passwordEncoder;
 
     public UsuarioService(UsuarioRepository usuarioRepository,
-                          MongoTemplate mongoTemplate,
-                          PasswordEncoder passwordEncoder) {
+                          UsuarioMapper usuarioMapper,
+                          MongoTemplate mongoTemplate) {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioMapper = usuarioMapper;
         this.mongoTemplate = mongoTemplate;
-        this.passwordEncoder = passwordEncoder;
     }
 
-    public Usuario guardarUsuario(Usuario usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        return usuarioRepository.save(usuario);
+    public UsuarioDTO guardarUsuario(UsuarioDTO dto) {
+        Usuario usuario = usuarioMapper.toEntity(dto);
+        usuario.setFechaRegistro(new Date());
+        usuario.setEstado(true);
+
+        Usuario usuarioGuardado = usuarioRepository.save(usuario);
+        return usuarioMapper.toDTO(usuarioGuardado);
     }
 
-    public List<Usuario> obtenerUsuarios() {
-        System.out.println("Base usada por Spring: " + mongoTemplate.getDb().getName());
-        System.out.println("Colecciones visibles: " +
-                mongoTemplate.getDb().listCollectionNames().into(new ArrayList<>()));
-
-        long totalColeccion = mongoTemplate.getCollection("usuarios").countDocuments();
-        System.out.println("Documentos directos en colección 'usuarios': " + totalColeccion);
-
+    public List<UsuarioDTO> obtenerUsuarios() {
+        System.out.println("Base usada: " + mongoTemplate.getDb().getName());
         List<Usuario> usuarios = usuarioRepository.findAll();
-        System.out.println("Usuarios encontrados con repository: " + usuarios.size());
-
-        return usuarios;
+        return usuarios.stream()
+                .map(usuarioMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Usuario> buscarPorId(String id) {
-        return usuarioRepository.findById(id);
+    public Optional<UsuarioDTO> buscarPorId(String id) {
+        return usuarioRepository.findById(id)
+                .map(usuarioMapper::toDTO);
     }
 
-    public Optional<Usuario> buscarPorCorreo(String correo) {
-        return usuarioRepository.findByCorreo(correo);
+    public UsuarioDTO actualizarUsuario(String id, UsuarioDTO dto) {
+        return usuarioRepository.findById(id)
+                .map(usuarioExistente -> {
+                    Usuario usuarioActualizado = usuarioMapper.toEntity(dto);
+                    usuarioActualizado.setId(id);
+                    usuarioActualizado.setFechaRegistro(usuarioExistente.getFechaRegistro());
+
+                    Usuario guardado = usuarioRepository.save(usuarioActualizado);
+                    return usuarioMapper.toDTO(guardado);
+                })
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 
     public void eliminarUsuario(String id) {

@@ -1,9 +1,8 @@
 package com.LUMO.LUMO_Proyecto.controller;
 
-import com.LUMO.LUMO_Proyecto.model.Juego;
+import com.LUMO.LUMO_Proyecto.dto.JuegoDTO;
 import com.LUMO.LUMO_Proyecto.service.JuegoService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -18,18 +17,24 @@ public class JuegoController {
     }
 
     @PostMapping
-    public Juego guardarJuego(@RequestBody Juego juego) {
-        return juegoService.guardarJuego(juego);
+    public JuegoDTO guardarJuego(@RequestBody JuegoDTO juegoDTO) {
+        return juegoService.guardarJuego(juegoDTO);
     }
 
     @GetMapping
-    public List<Juego> listarJuegos() {
+    public List<JuegoDTO> listarJuegos() {
         return juegoService.listarJuegos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Juego> buscarPorId(@PathVariable String id) {
-        return juegoService.buscarPorId(id);
+    public JuegoDTO buscarPorId(@PathVariable String id) {
+        return juegoService.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Juego no encontrado"));
+    }
+
+    @PutMapping("/{id}")
+    public JuegoDTO actualizarJuego(@PathVariable String id, @RequestBody JuegoDTO juegoDTO) {
+        return juegoService.actualizarJuego(id, juegoDTO);
     }
 
     @DeleteMapping("/{id}")

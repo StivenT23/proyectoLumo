@@ -3,31 +3,32 @@ package com.LUMO.LUMO_Proyecto.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "juegos")
-public class Juego {
+@Document(collection = "logros")
+public class Logro {
 
     @Id
     private String id;
 
     private String nombre;
     private String descripcion;
-    private String tipo;
-    private String nivelDificultad;
-    private Boolean activo;
+    private String tipo;                    // academico, concentracion, social, etc.
+    private Integer puntosRecompensa;
+    private String icono;                   // nombre o ruta del icono
 
-    public Juego() {
+    public Logro() {
     }
 
-    public Juego(String id, String nombre, String descripcion, String tipo,
-                 String nivelDificultad, Boolean activo) {
+    public Logro(String id, String nombre, String descripcion, String tipo,
+                 Integer puntosRecompensa, String icono) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tipo = tipo;
-        this.nivelDificultad = nivelDificultad;
-        this.activo = activo;
+        this.puntosRecompensa = puntosRecompensa;
+        this.icono = icono;
     }
 
+    // Getters y Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -40,9 +41,9 @@ public class Juego {
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
 
-    public String getNivelDificultad() { return nivelDificultad; }
-    public void setNivelDificultad(String nivelDificultad) { this.nivelDificultad = nivelDificultad; }
+    public Integer getPuntosRecompensa() { return puntosRecompensa; }
+    public void setPuntosRecompensa(Integer puntosRecompensa) { this.puntosRecompensa = puntosRecompensa; }
 
-    public Boolean getActivo() { return activo; }
-    public void setActivo(Boolean activo) { this.activo = activo; }
+    public String getIcono() { return icono; }
+    public void setIcono(String icono) { this.icono = icono; }
 }

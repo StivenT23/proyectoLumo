@@ -1,24 +1,19 @@
 package com.LUMO.LUMO_Proyecto.dto;
 
-public class JuegoDTO {
+public class MateriaDTO {
 
     private String id;
     private String nombre;
     private String descripcion;
-    private String tipo;
-    private String nivelDificultad;
     private Boolean activo;
 
-    public JuegoDTO() {
+    public MateriaDTO() {
     }
 
-    public JuegoDTO(String id, String nombre, String descripcion, String tipo,
-                    String nivelDificultad, Boolean activo) {
+    public MateriaDTO(String id, String nombre, String descripcion, Boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.tipo = tipo;
-        this.nivelDificultad = nivelDificultad;
         this.activo = activo;
     }
 
@@ -31,12 +26,6 @@ public class JuegoDTO {
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
-
-    public String getNivelDificultad() { return nivelDificultad; }
-    public void setNivelDificultad(String nivelDificultad) { this.nivelDificultad = nivelDificultad; }
 
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
