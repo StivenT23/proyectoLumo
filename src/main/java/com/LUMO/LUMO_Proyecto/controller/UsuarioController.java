@@ -1,12 +1,9 @@
 package com.LUMO.LUMO_Proyecto.controller;
 
-import com.LUMO.LUMO_Proyecto.model.Usuario;
+import com.LUMO.LUMO_Proyecto.dto.UsuarioDTO;
 import com.LUMO.LUMO_Proyecto.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/usuarios")
@@ -20,26 +17,26 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario guardarUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.guardarUsuario(usuario);
-    }
-
-    @PostMapping("/cargar-masivo")
-    public List<Usuario> cargarUsuariosMasivos(@RequestBody List<Usuario> usuarios) {
-        return usuarioService.guardarUsuariosMasivos(usuarios);
+    public UsuarioDTO guardarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        return usuarioService.guardarUsuario(usuarioDTO);
     }
 
     @GetMapping
-    public List<Usuario> obtenerUsuarios() {
-        List<Usuario> usuarios = usuarioService.obtenerUsuarios();
+    public List<UsuarioDTO> obtenerUsuarios() {
+        List<UsuarioDTO> usuarios = usuarioService.obtenerUsuarios();
         System.out.println("Usuarios encontrados: " + usuarios.size());
         return usuarios;
     }
 
     @GetMapping("/{id}")
-    public Usuario buscarPorId(@PathVariable String id) {
+    public UsuarioDTO buscarPorId(@PathVariable String id) {
         return usuarioService.buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+    @PutMapping("/{id}")
+    public UsuarioDTO actualizarUsuario(@PathVariable String id, @RequestBody UsuarioDTO usuarioDTO) {
+        return usuarioService.actualizarUsuario(id, usuarioDTO);
     }
 
     @DeleteMapping("/{id}")
