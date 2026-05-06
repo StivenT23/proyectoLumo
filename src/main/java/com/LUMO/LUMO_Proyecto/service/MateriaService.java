@@ -5,6 +5,7 @@ import com.LUMO.LUMO_Proyecto.mapper.MateriaMapper;
 import com.LUMO.LUMO_Proyecto.model.Materia;
 import com.LUMO.LUMO_Proyecto.repository.MateriaRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,8 +23,7 @@ public class MateriaService {
 
     public MateriaDTO guardarMateria(MateriaDTO dto) {
         Materia materia = materiaMapper.toEntity(dto);
-        Materia guardada = materiaRepository.save(materia);
-        return materiaMapper.toDTO(guardada);
+        return materiaMapper.toDTO(materiaRepository.save(materia));
     }
 
     public List<MateriaDTO> listarMaterias() {
@@ -34,6 +34,16 @@ public class MateriaService {
 
     public Optional<MateriaDTO> buscarPorId(String id) {
         return materiaRepository.findById(id).map(materiaMapper::toDTO);
+    }
+
+    public MateriaDTO actualizarMateria(String id, MateriaDTO dto) {
+        return materiaRepository.findById(id)
+                .map(existente -> {
+                    Materia actualizada = materiaMapper.toEntity(dto);
+                    actualizada.setId(id);
+                    return materiaMapper.toDTO(materiaRepository.save(actualizada));
+                })
+                .orElseThrow(() -> new RuntimeException("Materia no encontrada con id: " + id));
     }
 
     public void eliminarMateria(String id) {

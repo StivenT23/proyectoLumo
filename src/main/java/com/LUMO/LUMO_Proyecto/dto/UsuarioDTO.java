@@ -6,17 +6,15 @@ public class UsuarioDTO {
 
     private String id;
     private String correo;
+    private String password;   // Solo se usa al crear/actualizar, nunca se devuelve
     private String nombres;
     private String apellidos;
     private String rol;
     private Date fechaRegistro;
     private Boolean estado;
 
-    // Constructor vacío
-    public UsuarioDTO() {
-    }
+    public UsuarioDTO() {}
 
-    // Constructor completo
     public UsuarioDTO(String id, String correo, String nombres, String apellidos,
                       String rol, Date fechaRegistro, Boolean estado) {
         this.id = id;
@@ -34,6 +32,9 @@ public class UsuarioDTO {
 
     public String getCorreo() { return correo; }
     public void setCorreo(String correo) { this.correo = correo; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     public String getNombres() { return nombres; }
     public void setNombres(String nombres) { this.nombres = nombres; }

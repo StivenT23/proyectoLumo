@@ -9,7 +9,6 @@ public class Usuario {
 
     @Id
     private String id;
-
     private String correo;
     private String nombres;
     private String apellidos;

@@ -2,16 +2,17 @@ package com.LUMO.LUMO_Proyecto.dto;
 
 import java.util.Date;
 
-public class EstudianteDTO {
+public class EstudianteResponseDTO {
 
-    private String id;
+    // Datos del Usuario
     private String usuarioId;
-
-    // Campos importantes para el registro (agregados)
     private String nombres;
     private String apellidos;
     private String correo;
+    private String rol;  // ← CAMPO AGREGADO (faltaba)
 
+    // Datos del Estudiante
+    private String estudianteId;
     private Integer edad;
     private String nivelEscolar;
     private String diagnosticoTDAH;
@@ -21,18 +22,20 @@ public class EstudianteDTO {
     private Integer puntosAcumulados;
     private String nivelActual;
 
-    public EstudianteDTO() {
+    public EstudianteResponseDTO() {
     }
 
-    // Constructor completo actualizado
-    public EstudianteDTO(String id, String usuarioId, String nombres, String apellidos, String correo,
-                         Integer edad, String nivelEscolar, String diagnosticoTDAH, Date fechaNacimiento,
-                         String padreId, String docenteId, Integer puntosAcumulados, String nivelActual) {
-        this.id = id;
+    // Constructor completo con rol
+    public EstudianteResponseDTO(String usuarioId, String nombres, String apellidos, String correo,
+                                 String rol, String estudianteId, Integer edad, String nivelEscolar,
+                                 String diagnosticoTDAH, Date fechaNacimiento, String padreId,
+                                 String docenteId, Integer puntosAcumulados, String nivelActual) {
         this.usuarioId = usuarioId;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.correo = correo;
+        this.rol = rol;
+        this.estudianteId = estudianteId;
         this.edad = edad;
         this.nivelEscolar = nivelEscolar;
         this.diagnosticoTDAH = diagnosticoTDAH;
@@ -44,9 +47,6 @@ public class EstudianteDTO {
     }
 
     // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
     public String getUsuarioId() { return usuarioId; }
     public void setUsuarioId(String usuarioId) { this.usuarioId = usuarioId; }
 
@@ -58,6 +58,12 @@ public class EstudianteDTO {
 
     public String getCorreo() { return correo; }
     public void setCorreo(String correo) { this.correo = correo; }
+
+    public String getRol() { return rol; }
+    public void setRol(String rol) { this.rol = rol; }
+
+    public String getEstudianteId() { return estudianteId; }
+    public void setEstudianteId(String estudianteId) { this.estudianteId = estudianteId; }
 
     public Integer getEdad() { return edad; }
     public void setEdad(Integer edad) { this.edad = edad; }

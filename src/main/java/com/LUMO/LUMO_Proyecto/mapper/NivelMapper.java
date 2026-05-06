@@ -9,27 +9,25 @@ public class NivelMapper {
 
     public NivelDTO toDTO(Nivel nivel) {
         if (nivel == null) return null;
-
-        return new NivelDTO(
-                nivel.getId(),
-                nivel.getNombre(),
-                nivel.getDescripcion(),
-                nivel.getNumeroNivel(),
-                nivel.getPuntosRequeridos(),
-                nivel.getActivo()
-        );
+        NivelDTO dto = new NivelDTO();
+        dto.setId(nivel.getId());
+        dto.setNombre(nivel.getNombre());
+        dto.setDescripcion(nivel.getDescripcion());
+        dto.setNumeroNivel(nivel.getNumeroNivel());
+        dto.setPuntosRequeridos(nivel.getPuntosRequeridos());
+        dto.setActivo(nivel.getActivo());
+        return dto;
     }
 
     public Nivel toEntity(NivelDTO dto) {
         if (dto == null) return null;
-
-        return new Nivel(
-                dto.getId(),
-                dto.getNombre(),
-                dto.getDescripcion(),
-                dto.getNumeroNivel(),
-                dto.getPuntosRequeridos(),
-                dto.getActivo()
-        );
+        Nivel nivel = new Nivel();
+        nivel.setId(dto.getId());
+        nivel.setNombre(dto.getNombre());
+        nivel.setDescripcion(dto.getDescripcion());
+        nivel.setNumeroNivel(dto.getNumeroNivel());
+        nivel.setPuntosRequeridos(dto.getPuntosRequeridos());
+        nivel.setActivo(dto.getActivo());
+        return nivel;
     }
 }

@@ -26,11 +26,24 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/usuarios", "/auth/login", "/auth/register").permitAll()
-                        .requestMatchers("/juegos/**").permitAll()           // Temporal
+                        // Rutas públicas - no requieren token
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/usuarios/**").permitAll()    // Temporal para pruebas
+                        .requestMatchers("/juegos/**").permitAll()      // Temporal para pruebas
+                        .requestMatchers("/estudiantes/**").permitAll() // Temporal para pruebas
+                        .requestMatchers("/logros/**").permitAll()      // Temporal para pruebas
+                        .requestMatchers("/materias/**").permitAll()    // Temporal para pruebas
+                        .requestMatchers("/niveles/**").permitAll()     // Temporal para pruebas
+                        .requestMatchers("/preguntas/**").permitAll()   // Temporal para pruebas
+                        .requestMatchers("/partidas/**").permitAll()    // Temporal para pruebas
+                        .requestMatchers("/respuestas/**").permitAll()  // Temporal para pruebas
+                        .requestMatchers("/chat/**").permitAll()        // Temporal para pruebas
+                        // Cualquier otra ruta requiere autenticación
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -5,6 +5,7 @@ import com.LUMO.LUMO_Proyecto.mapper.PreguntaMapper;
 import com.LUMO.LUMO_Proyecto.model.Pregunta;
 import com.LUMO.LUMO_Proyecto.repository.PreguntaRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,8 +23,7 @@ public class PreguntaService {
 
     public PreguntaDTO guardarPregunta(PreguntaDTO dto) {
         Pregunta pregunta = preguntaMapper.toEntity(dto);
-        Pregunta guardada = preguntaRepository.save(pregunta);
-        return preguntaMapper.toDTO(guardada);
+        return preguntaMapper.toDTO(preguntaRepository.save(pregunta));
     }
 
     public List<PreguntaDTO> listarPreguntas() {
@@ -40,6 +40,16 @@ public class PreguntaService {
         return preguntaRepository.findByMateriaId(materiaId).stream()
                 .map(preguntaMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public PreguntaDTO actualizarPregunta(String id, PreguntaDTO dto) {
+        return preguntaRepository.findById(id)
+                .map(existente -> {
+                    Pregunta actualizada = preguntaMapper.toEntity(dto);
+                    actualizada.setId(id);
+                    return preguntaMapper.toDTO(preguntaRepository.save(actualizada));
+                })
+                .orElseThrow(() -> new RuntimeException("Pregunta no encontrada con id: " + id));
     }
 
     public void eliminarPregunta(String id) {
