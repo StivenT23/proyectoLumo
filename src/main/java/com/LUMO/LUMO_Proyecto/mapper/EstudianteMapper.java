@@ -7,13 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class EstudianteMapper {
 
-    // Convierte Estudiante (model) → EstudianteDTO
-    // NOTA: nombres, apellidos y correo NO están en Estudiante,
-    // esos vienen del Usuario. Este mapper solo mapea los campos del modelo.
+    /**
+     * Convierte Estudiante (Entity) → EstudianteDTO
+     * Solo mapea los campos que pertenecen a la tabla estudiantes
+     */
     public EstudianteDTO toDTO(Estudiante estudiante) {
         if (estudiante == null) return null;
 
         EstudianteDTO dto = new EstudianteDTO();
+
         dto.setId(estudiante.getId());
         dto.setUsuarioId(estudiante.getUsuarioId());
         dto.setEdad(estudiante.getEdad());
@@ -24,14 +26,15 @@ public class EstudianteMapper {
         dto.setDocenteId(estudiante.getDocenteId());
         dto.setPuntosAcumulados(estudiante.getPuntosAcumulados());
         dto.setNivelActual(estudiante.getNivelActual());
+
         return dto;
     }
 
-    // Convierte EstudianteDTO → Estudiante (model)
     public Estudiante toEntity(EstudianteDTO dto) {
         if (dto == null) return null;
 
         Estudiante estudiante = new Estudiante();
+
         estudiante.setId(dto.getId());
         estudiante.setUsuarioId(dto.getUsuarioId());
         estudiante.setEdad(dto.getEdad());
@@ -42,6 +45,7 @@ public class EstudianteMapper {
         estudiante.setDocenteId(dto.getDocenteId());
         estudiante.setPuntosAcumulados(dto.getPuntosAcumulados());
         estudiante.setNivelActual(dto.getNivelActual());
+
         return estudiante;
     }
 }

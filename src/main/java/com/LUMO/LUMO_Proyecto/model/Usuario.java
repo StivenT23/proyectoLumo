@@ -8,42 +8,33 @@ import java.util.Date;
 public class Usuario {
 
     @Id
-    private String id;
-    private String correo;
+    private String _id;
+
+    private String codigoUsuario;   // usr_001, usr_011, etc.
     private String nombres;
     private String apellidos;
+    private String correo;
     private String password;
     private String rol;
     private Date fechaRegistro;
     private Boolean estado;
 
-    public Usuario() {
-    }
+    public Usuario() {}
 
-    public Usuario(String id, String correo, String nombres, String apellidos,
-                   String password, String rol, Date fechaRegistro, Boolean estado) {
-        this.id = id;
-        this.correo = correo;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.password = password;
-        this.rol = rol;
-        this.fechaRegistro = fechaRegistro;
-        this.estado = estado;
-    }
+    public String get_id() { return _id; }
+    public void set_id(String _id) { this._id = _id; }
 
-    // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
+    public String getCodigoUsuario() { return codigoUsuario; }
+    public void setCodigoUsuario(String codigoUsuario) { this.codigoUsuario = codigoUsuario; }
 
     public String getNombres() { return nombres; }
     public void setNombres(String nombres) { this.nombres = nombres; }
 
     public String getApellidos() { return apellidos; }
     public void setApellidos(String apellidos) { this.apellidos = apellidos; }
+
+    public String getCorreo() { return correo; }
+    public void setCorreo(String correo) { this.correo = correo; }
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }

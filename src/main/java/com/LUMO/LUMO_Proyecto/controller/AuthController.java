@@ -70,7 +70,7 @@ public class AuthController {
 
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("token", token);
-        respuesta.put("id", guardado.getId());
+        respuesta.put("id", guardado.get_id());
         respuesta.put("correo", guardado.getCorreo());
         respuesta.put("nombres", guardado.getNombres());
         respuesta.put("rol", guardado.getRol());
@@ -112,7 +112,7 @@ public class AuthController {
 
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("token", token);
-        respuesta.put("id", usuario.getId());
+        respuesta.put("id", usuario.get_id());
         respuesta.put("correo", usuario.getCorreo());
         respuesta.put("nombres", usuario.getNombres());
         respuesta.put("apellidos", usuario.getApellidos());

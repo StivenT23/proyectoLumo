@@ -10,19 +10,20 @@ public class Estudiante {
     @Id
     private String id;
 
-    private String usuarioId;           // Referencia al Usuario
+    private String usuarioId;
     private Integer edad;
-    private String nivelEscolar;        // Ej: "3° Primaria", "4° Primaria"
-    private String diagnosticoTDAH;     // "leve", "moderado", "severo"
+    private String nivelEscolar;
+    private String diagnosticoTDAH;
     private Date fechaNacimiento;
-    private String padreId;             // Referencia a usuario padre/tutor
-    private String docenteId;           // Referencia a usuario docente
+    private String padreId;
+    private String docenteId;
     private Integer puntosAcumulados;
     private String nivelActual;
 
     public Estudiante() {
     }
 
+    // Constructor (opcional, puedes mantenerlo o quitarlo)
     public Estudiante(String id, String usuarioId, Integer edad, String nivelEscolar,
                       String diagnosticoTDAH, Date fechaNacimiento, String padreId,
                       String docenteId, Integer puntosAcumulados, String nivelActual) {

@@ -5,6 +5,8 @@ import com.LUMO.LUMO_Proyecto.mapper.PartidaJuegoMapper;
 import com.LUMO.LUMO_Proyecto.model.PartidaJuego;
 import com.LUMO.LUMO_Proyecto.repository.PartidaJuegoRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,40 +14,44 @@ import java.util.stream.Collectors;
 @Service
 public class PartidaJuegoService {
 
-    private final PartidaJuegoRepository partidaJuegoRepository;
-    private final PartidaJuegoMapper partidaJuegoMapper;
+    private final PartidaJuegoRepository partidaRepository;
+    private final PartidaJuegoMapper partidaMapper;
 
-    public PartidaJuegoService(PartidaJuegoRepository partidaJuegoRepository,
-                               PartidaJuegoMapper partidaJuegoMapper) {
-        this.partidaJuegoRepository = partidaJuegoRepository;
-        this.partidaJuegoMapper = partidaJuegoMapper;
+    public PartidaJuegoService(PartidaJuegoRepository partidaRepository,
+                               PartidaJuegoMapper partidaMapper) {
+        this.partidaRepository = partidaRepository;
+        this.partidaMapper = partidaMapper;
     }
 
     public PartidaJuegoDTO guardarPartida(PartidaJuegoDTO dto) {
-        PartidaJuego partida = partidaJuegoMapper.toEntity(dto);
-        PartidaJuego guardada = partidaJuegoRepository.save(partida);
-        return partidaJuegoMapper.toDTO(guardada);
+        PartidaJuego partida = partidaMapper.toEntity(dto);
+        partida.setFechaInicio(new Date()); // Registrar hora de inicio
+
+        if (partida.getFechaFin() == null) {
+            partida.setFechaFin(new Date());
+        }
+
+        PartidaJuego guardada = partidaRepository.save(partida);
+        return partidaMapper.toDTO(guardada);
     }
 
     public List<PartidaJuegoDTO> listarPartidas() {
-        return partidaJuegoRepository.findAll().stream()
-                .map(partidaJuegoMapper::toDTO)
+        return partidaRepository.findAll().stream()
+                .map(partidaMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<PartidaJuegoDTO> buscarPorEstudiante(String estudianteId) {
+        return partidaRepository.findByEstudianteId(estudianteId).stream()
+                .map(partidaMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     public Optional<PartidaJuegoDTO> buscarPorId(String id) {
-        return partidaJuegoRepository.findById(id)
-                .map(partidaJuegoMapper::toDTO);
-    }
-
-    public List<PartidaJuegoDTO> buscarPorEstudiante(String estudianteId) {
-        // Este método es muy útil para reportes
-        return partidaJuegoRepository.findByEstudianteId(estudianteId).stream()
-                .map(partidaJuegoMapper::toDTO)
-                .collect(Collectors.toList());
+        return partidaRepository.findById(id).map(partidaMapper::toDTO);
     }
 
     public void eliminarPartida(String id) {
-        partidaJuegoRepository.deleteById(id);
+        partidaRepository.deleteById(id);
     }
 }

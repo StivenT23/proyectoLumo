@@ -9,7 +9,7 @@ public class EstudianteResponseDTO {
     private String nombres;
     private String apellidos;
     private String correo;
-    private String rol;  // ← CAMPO AGREGADO (faltaba)
+    private String rol;
 
     // Datos del Estudiante
     private String estudianteId;
@@ -25,11 +25,11 @@ public class EstudianteResponseDTO {
     public EstudianteResponseDTO() {
     }
 
-    // Constructor completo con rol
     public EstudianteResponseDTO(String usuarioId, String nombres, String apellidos, String correo,
                                  String rol, String estudianteId, Integer edad, String nivelEscolar,
                                  String diagnosticoTDAH, Date fechaNacimiento, String padreId,
                                  String docenteId, Integer puntosAcumulados, String nivelActual) {
+
         this.usuarioId = usuarioId;
         this.nombres = nombres;
         this.apellidos = apellidos;

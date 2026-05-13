@@ -59,7 +59,7 @@ public class UsuarioService {
         return usuarioRepository.findById(id)
                 .map(existente -> {
                     Usuario actualizado = usuarioMapper.toEntity(dto);
-                    actualizado.setId(id);
+                    actualizado.set_id(id);
                     actualizado.setFechaRegistro(existente.getFechaRegistro());
                     // Solo re-encriptar si se envía nueva password
                     if (dto.getPassword() != null && !dto.getPassword().isBlank()) {

@@ -1,4 +1,4 @@
-package com.LUMO.LUMO_Proyecto.config;
+package com.LUMO.LUMO_Proyecto.security;
 
 import com.LUMO.LUMO_Proyecto.security.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
